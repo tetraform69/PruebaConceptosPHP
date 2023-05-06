@@ -1,16 +1,19 @@
 <?php
+
 include "user.php";
+
+$data = array();
 
 session_start();
 
 if (empty($_SESSION["user"]))
 {
-    header("Location: formLogin.php");
+    header("Location: login.php");
     exit();
 }
 
 $usuario = $_SESSION["user"];
-echo "Usted es el Administrador: " . $usuario->getName();
-?>
-
-<a href="logout.php">Cerrar Sesion</a>
+$data['status'] = 'ok';
+$data['message'] = 'You are admin';
+$data['result'] = $usuario->json();
+echo json_encode($data);

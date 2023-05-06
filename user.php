@@ -13,6 +13,12 @@ class User
         $this->rol = $rol;
     }
 
+    public function json()
+    {
+        $data = array("name"=>$this->name, "rol"=>$this->rol);
+        return $data;
+    }
+
     /**
      * Get the value of name
      */
