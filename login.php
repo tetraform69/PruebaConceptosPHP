@@ -5,7 +5,7 @@ include 'user.php';
 $users = array();
 $rol_site = [
     'admin' => 'Location: admin.php',
-    'user' => 'Location: user.php'
+    'user' => 'Location: index.php'
 ];
 
 $admin = new user('Admin', '1234', 'admin');
