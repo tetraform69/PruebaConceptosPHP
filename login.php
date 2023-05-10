@@ -1,44 +1,37 @@
 <?php
 
-include 'user.php';
+include 'controllers/userController.php';
 
-$users = array();
+$userController = new UserController();
+$users = $userController->getAll();
 $json = array();
-$rol_site = [
-    'admin' => 'Location: admin.php',
-    'user' => 'Location: index.php'
-];
-
-$admin = new user('Admin', '1234', 'admin');
-$user = new user('Camilo', '9876', 'user');
-
-$users[$admin->getName()] = $admin;
-$users[$user->getName()] = $user;
 
 try {
-    throw new RuntimeException('El Json no contiene los datos necesarios: name, pasword');
 
     $json_string = file_get_contents('php://input');
     $data = json_decode($json_string);
-    
+
     $name_consulta = $data->name;
     $pasword_consulta = $data->pasword;
-    
-    if (!array_key_exists($name_consulta, $users))
-    {
+
+    var_dump($users);
+
+    foreach ($users as $user) {
+        if ($user['name'] == $name_consulta && $user['pasword'] == $pasword_consulta) {
+            session_start();
+            $_SESSION["user"] = $user;
+        }
+    }
+
+    if (!array_key_exists($name_consulta, $users)) {
         $json['status'] = 'error';
         $json['result'] = 'No existe un usuario con esos datos';
-    } 
-    else 
-    {
+    } else {
         $usuario = $users[$name_consulta];
-        if ($usuario->getPasword() != $pasword_consulta)
-        {
+        if ($usuario->getPasword() != $pasword_consulta) {
             $json['status'] = 'error';
             $json['result'] = 'contraseña incorrecta';
-        }
-        else
-        {
+        } else {
             session_start();
             $_SESSION["user"] = $usuario;
             $json['status'] = 'ok';
