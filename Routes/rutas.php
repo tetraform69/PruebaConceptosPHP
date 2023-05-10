@@ -29,12 +29,19 @@ function rutas()
     }
     // handle POST request to /auth
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/auth') {
-        echo '/auth';
+        $message = "No tiene acceso a todo";
+        if ($_SESSION['user']['rol'] == 'admin'){
+            $message = "Tiene acceso a todo";
+        }
+        echo $message;
         return;
     }
     // handle POST request to /user/create
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/user/create') {
-        echo '/user/create';
+        $json_string = file_get_contents('php://input');
+        $data = json_decode($json_string);
+        $userController = new UserController();
+        echo json_encode($userController->create($data->name, $data->pasword));
         return;
     }
     // handle PATCH request to /user/index

@@ -1,7 +1,6 @@
 <?php
 
 include_once "conexion.php";
-
 class User
 {
     private $name;
@@ -9,25 +8,25 @@ class User
     private $rol;
     public $con;
 
-    public function __construct(string $name, string $pasword, string $rol)
+    public function __construct(string $name, string $pasword)
     {
         $this->name = $name;
         $this->pasword = $pasword;
-        $this->rol = $rol;
+        $this->rol = "user";
         $this->con = new \Conexion();
     }
 
     public function create()
     {
         try {
-            $request = $this->con->getCon()->prepare("INSERT INTO users(name, pasword, rol) VALUES(:name, :pasword, ':rol')");
+            $request = $this->con->getCon()->prepare("INSERT INTO users(name, pasword, rol) VALUES(:name, :pasword, :rol)");
             $request->bindParam(':name', $this->name);
             $request->bindParam(':pasword', $this->pasword);
             $request->bindParam(':rol', $this->rol);
             $request->execute();
-            return "User creado";
+            return "message: User creado";
         } catch (PDOExeption $err) {
-            return "Error al crear" . $err->getMessage();
+            return "message: Error al crear" . $err->getMessage();
         }
     }
 
