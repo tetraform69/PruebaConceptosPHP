@@ -1,20 +1,17 @@
 <?php
 // Importas controladres => A nivel general todo controlador que uses
-include_once "/laragon/www/PruebaConceptosPHP/controllers/userController.php";
+include_once("controllers/userController.php");
+include_once("midleware.php");
 function rutas()
 {
-    // handle GET request to /user
+    // handle GET request to /users
     // echo json_encode($_SERVER);
-    if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/user') {
-        // Importas Controlador Usuario
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/users') {
         $userController = new UserController();
-        // Invocas metodo usuario get all
-        // Retornas datos
         echo  json_encode($userController->getAll());
         return;
     }
-
-    // handle GET request to /user?prueba=number
+    // handle GET request to /user?id=number
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && preg_match('/user\?id=(\d+)$/', $_SERVER['REQUEST_URI'], $matches)) {
         $index = $matches[1];
         $userController = new UserController();
@@ -28,13 +25,14 @@ function rutas()
         return;
     }
     // handle POST request to /auth
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/auth') {
-        $message = "No tiene acceso a todo";
-        if ($_SESSION['user']['rol'] == 'admin'){
-            $message = "Tiene acceso a todo";
+    if (!validateAuth()) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/auth') {
+            $message = "Tiene acceso";
+            echo $message;
+            return;
         }
-        echo $message;
-        return;
+    } else {
+        return http_response_code(401);
     }
     // handle POST request to /user/create
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/user/create') {
