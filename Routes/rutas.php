@@ -46,7 +46,10 @@ function rutas()
     // handle PATCH request to /user/index
     if ($_SERVER['REQUEST_METHOD'] === 'PATCH' && preg_match('/user\/(\w+)$/', $_SERVER['REQUEST_URI'], $matches)) {
         $index = $matches[1];
-        echo '/userpatch/ ' . $index;
+        $json_string = file_get_contents('php://input');
+        $data = json_decode($json_string);
+        $userController = new UserController();
+        echo json_encode($userController->update($index ,$data->name, $data->pasword));
         return;
     }
     // handle DELETE request to /user/delete
