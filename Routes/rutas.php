@@ -19,9 +19,10 @@ function rutas()
         return;
     }
     // handle GET request to /user/index
-    if ($_SERVER['REQUEST_METHOD'] === 'GET' && preg_match('/^\/user\/(\w+)$/', $_SERVER['REQUEST_URI'], $matches)) {
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && preg_match('/user\/(\w+)$/', $_SERVER['REQUEST_URI'], $matches)) {
         $index = $matches[1];
-        echo '/user/ ' . $index;
+        $userController = new UserController();
+        echo json_encode($userController->getOne($index));
         return;
     }
     // handle POST request to /auth
@@ -43,14 +44,16 @@ function rutas()
         return;
     }
     // handle PATCH request to /user/index
-    if ($_SERVER['REQUEST_METHOD'] === 'PATCH' && preg_match('/^\/user\/(\w+)$/', $_SERVER['REQUEST_URI'], $matches)) {
+    if ($_SERVER['REQUEST_METHOD'] === 'PATCH' && preg_match('/user\/(\w+)$/', $_SERVER['REQUEST_URI'], $matches)) {
         $index = $matches[1];
         echo '/userpatch/ ' . $index;
         return;
     }
     // handle DELETE request to /user/delete
-    if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/user/delete') {
-        echo '/user/delete';
+    if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && preg_match('/user\/delete\?id=(\d+)$/', $_SERVER['REQUEST_URI'], $matches)) {
+        $index = $matches[1];
+        $userController = new UserController();
+        echo json_encode($userController->delete($index));
         return;
     }
     http_response_code(404);
