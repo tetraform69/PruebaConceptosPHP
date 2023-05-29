@@ -36,7 +36,7 @@ function rutas()
 
             $name_consulta = $data->name;
             $pasword_consulta = $data->pasword;
-            
+
             foreach ($users as $user) {
                 if ($user['name'] == $name_consulta && $user['pasword'] == $pasword_consulta) {
                     $_SESSION["user"] = $user;
@@ -57,7 +57,6 @@ function rutas()
 
             $json['status'] = 'ok';
             $json['message'] = 'You Logout';
-
         } else {
             $json['message'] = "you haven't a session";
         }
