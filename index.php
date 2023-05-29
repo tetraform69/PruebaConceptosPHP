@@ -5,10 +5,4 @@ require_once('Routes/rutas.php');
 
 session_start();
 
-if (!empty($_SESSION["user"])) {
-    rutas();
-} else {
-    $json['message'] = "Debe iniciar sesion";
-    echo json_encode($json);
-    session_destroy();
-}
+rutas();
