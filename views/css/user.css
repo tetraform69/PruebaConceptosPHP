@@ -1,0 +1,124 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    background: #303030;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+nav {
+    background: #202020;
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+nav a{
+    text-align: center;
+    font-size: larger;
+    font-weight: 600;
+    text-decoration: none;
+    color: aliceblue;
+    width: 100px;
+    margin: 0px 30px;
+    height: 100%;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: all 0.5s;
+}
+
+nav a:hover{
+    letter-spacing: 4px;
+    color: #0099ff;
+}
+
+section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    background: #202020;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px;
+    border-radius: 5px;
+    min-width: 25%;
+}
+
+img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.box-input{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin-bottom: 10px;
+}
+
+input{
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #ffffff80;
+    color: #fff;
+    font-weight: 600;
+    font-size: large;
+    transition: 0.5s;
+}
+
+.box-input input:focus,
+.box-input input:valid{
+    border-bottom: 2px solid #0099ff;
+}
+
+.box-buttons {
+    width: 80%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.box-buttons button {
+    margin: 0px 5px;
+    width: 80%;
+    padding: 10px;
+    background: #0099ff;
+    border: none;
+    cursor: pointer;
+    font-size: medium;
+    font-weight: 600;
+    letter-spacing: 2px;
+    border-radius: 50px;
+    transition: all 0.5s;
+}
+
+.box-buttons button:hover{
+    background: #4fb9ff;
+    letter-spacing: 3px;
+}
+
+.box-buttons button:disabled{
+    visibility: hidden;
+}
