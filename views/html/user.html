@@ -11,21 +11,21 @@
 <body>
     <nav>
         <a href="#">inicio</a>
-        <a href="#" onclick="editar()">editar</a>
+        <a href="#" onclick="settings()">settings</a>
         <a href="login.html" id="salir">salir</a>
     </nav>
     <section>
         <div class="box">
             <img src="/views/img/default-user-image.png" alt="">
             <div class="box-input">
-                <input type="text" value="username" required disabled>
+                <input type="text" placeholder="username" required disabled>
             </div>
             <div class="box-input">
-                <input type="text" value="1234" required disabled>
+                <input type="text" placeholder="password" required disabled>
             </div>
             <div class="box-buttons">
-                <button disabled onclick="actualizar()">Actualizar</button>
-                <button disabled>Eliminar</button>
+                <button disabled onclick="update()">Update</button>
+                <button disabled>Delete</button>
             </div>
         </div>
     </section>

@@ -1,4 +1,4 @@
-function editar() {
+function settings() {
     inputs = document.querySelectorAll('input')
     buttons = document.querySelectorAll('button')
     inputs.forEach(input => {
@@ -9,7 +9,7 @@ function editar() {
     })
 }
 
-function actualizar() {
+function update() {
     inputs = document.querySelectorAll('input')
     buttons = document.querySelectorAll('button')
     inputs.forEach(input => {
