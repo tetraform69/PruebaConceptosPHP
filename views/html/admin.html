@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/views/css/admin.css">
+    <script src="/views/js/admin.js" defer></script>
     <title>Admin</title>
 </head>
+
 <body>
     <nav>
         <a href="#">inicio</a>
@@ -19,24 +22,53 @@
             <div class="header-table">
                 <p>#</p>
                 <p>user</p>
-                <p>estado</p>
+                <p>status</p>
                 <p></p>
             </div>
             <div class="body-table">
                 <div class="row">
                     <p>1</p>
                     <p>Juan</p>
-                    <p>activo</p>
-                    <p><button>Eliminar</button></p>
+                    <p>active</p>
+                    <div class="buttons">
+                        <button onclick="openModal('update')">Edit</button>
+                        <button onclick="openModal('delete')">Delete</button>
+                    </div>
                 </div>
                 <div class="row">
                     <p>2</p>
                     <p>Pepe</p>
-                    <p>activo</p>
-                    <p><button>Eliminar</button></p>
+                    <p>inactive</p>
+                    <div class="buttons">
+                        <button onclick="openModal('update')">Edit</button>
+                        <button onclick="openModal('delete')">Delete</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <div class="modal-container" id="modal-container">
+        <div class="modal" id="modal-update">
+            <button class="close-modal" onclick="closeModal('update')">X</button>
+            <div class="box-input">
+                <input type="text" id="username" required>
+                <label for="username">User Name</label>
+            </div>
+            <div class="box-input">
+                <input type="text" id="password" required>
+                <label for="password">Password</label>
+            </div>
+            <div class="check-container">
+                <input type="checkbox">
+                <p>active</p>
+            </div>
+            <button>Update</button>
+        </div>
+        <div class="modal" id="modal-delete">
+
+        </div>
+    </div>
 </body>
+
 </html>

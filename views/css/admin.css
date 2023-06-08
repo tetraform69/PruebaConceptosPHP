@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -20,7 +20,7 @@ nav {
     align-items: center;
 }
 
-nav a{
+nav a {
     text-align: center;
     font-size: larger;
     font-weight: 600;
@@ -34,7 +34,7 @@ nav a{
     transition: all 0.5s;
 }
 
-nav a:hover{
+nav a:hover {
     letter-spacing: 4px;
     color: #0099ff;
 }
@@ -58,7 +58,7 @@ section {
     border-radius: 5px;
 }
 
-.header-table{
+.header-table {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -66,7 +66,7 @@ section {
     margin-top: 20px;
 }
 
-.header-table p{
+.header-table p {
     color: aliceblue;
     text-transform: uppercase;
     min-width: 25%;
@@ -83,7 +83,7 @@ section {
     min-width: 80%;
 }
 
-.row{
+.row {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -91,8 +91,132 @@ section {
     min-height: 40px;
 }
 
-.row p{
+.row:hover {
+    background: #32323280;
+}
+
+.row p {
     color: #ffffff80;
     text-align: center;
     width: 25%;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+}
+
+button {
+    width: 80%;
+    padding: 5px;
+    background: #0099ff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    transition: background-color 0.5s, letter-spacing 0.5s;
+    margin: 5px;
+}
+
+button:hover {
+    background: #4fb9ff;
+    letter-spacing: 3px;
+}
+
+.modal-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: #00000090;
+    min-height: 100vh;
+    visibility: hidden;
+}
+
+.modal {
+    background: #202020;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 50%;
+    min-height: 30vh;
+    border-radius: 5px;
+}
+
+.box-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin-bottom: 10px;
+}
+
+label {
+    align-self: flex-start;
+}
+
+.box-input [type="text"] {
+    min-width: 100%;
+    padding: 10px;
+    outline: none;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #ffffff80;
+    color: #fff;
+    font-weight: 600;
+    font-size: large;
+    transition: background-color 0.5s, letter-spacing 0.5s;
+    letter-spacing: 3px;
+}
+
+.box-input label {
+    color: #ffffff80;
+    transition: background-color 0.5s, letter-spacing 0.5s;
+}
+
+.box-input [type="text"]:focus,
+.box-input [type="text"]:valid {
+    border-bottom: 2px solid #0099ff;
+}
+
+.box-input [type="text"]:focus~label,
+.box-input [type="text"]:valid~label {
+    color: #0099ff;
+}
+
+.close-modal {
+    width: 20%;
+    align-self: flex-end;
+    background: none;
+    color: #fff;
+}
+
+.check-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    border: solid black 0.5px;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    margin: 5px;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+    background: #0099ff;
+    background-image: url(/views/img/check-checked.svg);
 }
