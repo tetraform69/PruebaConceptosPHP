@@ -9,6 +9,14 @@ modalContainer.addEventListener('click', (event) => {
     }
 })
 
+chek = document.getElementById('check')
+chek.addEventListener('change', ()=>{
+    console.log(chek.checked);
+    labelCheck = document.getElementById('check-label')
+    chek.checked? labelCheck.innerText = 'active': labelCheck.innerText = 'inactive'
+})
+
+
 function openModal(id) {
     let modal = document.getElementById(`modal-${id}`)
     modalContainer.style.visibility = "visible"

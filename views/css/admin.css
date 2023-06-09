@@ -202,10 +202,15 @@ label {
 }
 
 .check-container {
+    min-width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
+}
+
+.check-container p{
+    width: 100px;
 }
 
 input[type="checkbox"] {

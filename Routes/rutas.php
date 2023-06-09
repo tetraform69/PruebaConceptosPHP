@@ -2,6 +2,7 @@
 // Importas controladres => A nivel general todo controlador que uses
 include_once("controllers/userController.php");
 include_once("midleware.php");
+include_once("router.php");
 function rutas()
 {
     // handle GET request to /users
@@ -9,6 +10,28 @@ function rutas()
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/users') {
         $userController = new UserController();
         echo  json_encode($userController->getAll());
+        return;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && ($_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/login' || $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/')) {
+        if (isset($_SESSION['user'])){
+            if($_SESSION['user']['rol'] == 'admin'){
+                header('Location: /PruebaConceptosPHP/admin');
+            }else{
+                header('Location: /PruebaConceptosPHP/user');
+            }
+        }
+        login();
+        return;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/admin') {
+        admin();
+        return;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/user') {
+        user();
         return;
     }
     // handle GET request to /user?id=number
@@ -28,6 +51,9 @@ function rutas()
     //* POST /login
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/login') {
         if (!isset($_SESSION['user'])) {
+
+            $sesion = false;
+
             $userController = new UserController();
             $users = $userController->getAll();
 
@@ -42,10 +68,19 @@ function rutas()
                     $_SESSION["user"] = $user;
                     $json['status'] = 'ok';
                     $json['message'] = 'You have Login';
+                    $json['userRol'] = $user['rol'];
+                    $sesion = true;
                 }
             }
+
+            if ($sesion == false) {
+                $json['status'] = 'error';
+                $json['message'] = 'incorrect credentials';
+            }
+
         } else {
-            $json['message'] = 'you have a session started';
+            $json['status'] = 'error';
+            $json['message'] = 'already have a session';
         }
         echo json_encode($json);
         return;
