@@ -97,3 +97,8 @@ a{
     color: #0099ff;
     text-transform: uppercase;
 }
+
+#message {
+    color: #ff0000;
+    text-transform: uppercase;
+}

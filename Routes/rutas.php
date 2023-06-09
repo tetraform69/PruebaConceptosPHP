@@ -14,10 +14,10 @@ function rutas()
     }
     //* GET login and index
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && ($_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/login' || $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/')) {
-        if (isset($_SESSION['user'])){
-            if($_SESSION['user']['rol'] == 'admin'){
+        if (isset($_SESSION['user'])) {
+            if ($_SESSION['user']['rol'] == 'admin') {
                 header('Location: /PruebaConceptosPHP/admin');
-            }else{
+            } else {
                 header('Location: /PruebaConceptosPHP/user');
             }
         }
@@ -26,7 +26,7 @@ function rutas()
     }
     //* GET admin
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/admin') {
-        if(!isset($_SESSION['user'])){
+        if (!isset($_SESSION['user'])) {
             header('Location: /PruebaConceptosPHP/login');
         }
         admin();
@@ -34,7 +34,7 @@ function rutas()
     }
     //* GET user
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/user') {
-        if(!isset($_SESSION['user'])){
+        if (!isset($_SESSION['user'])) {
             header('Location: /PruebaConceptosPHP/login');
         }
         user();
@@ -96,7 +96,6 @@ function rutas()
                 $json['status'] = 'error';
                 $json['message'] = 'incorrect credentials';
             }
-
         } else {
             $json['status'] = 'error';
             $json['message'] = 'already have a session';

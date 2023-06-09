@@ -15,7 +15,7 @@
         <a href="#">inicio</a>
         <a href="#">users</a>
         <a href="#">settings</a>
-        <a href="login.html" id="salir">salir</a>
+        <a href="#" onclick="logout()">salir</a>
     </nav>
     <section>
         <div class="box">
@@ -49,22 +49,22 @@
     </section>
 
     <div class="modal-container" id="modal-container">
-        <div class="modal" id="modal-update">
-            <button class="close-modal" onclick="closeModal('update')">X</button>
+        <form class="modal" id="modal-update">
+            <button type="button" class="close-modal" onclick="closeModal('update')">X</button>
             <div class="box-input">
-                <input type="text" id="username" required>
+                <input type="text" id="username" name="username" required>
                 <label for="username">User Name</label>
             </div>
             <div class="box-input">
-                <input type="text" id="password" required>
+                <input type="text" id="password" name="password" required>
                 <label for="password">Password</label>
             </div>
             <div class="check-container">
                 <input type="checkbox" id="check">
                 <p id="check-label">active</p>
             </div>
-            <button>Update</button>
-        </div>
+            <button type="submit">Update</button>
+        </form>
         <div class="modal" id="modal-delete">
             <h1>Are you sure?</h1>
             <div class="buttons">

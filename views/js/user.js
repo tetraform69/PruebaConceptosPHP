@@ -9,7 +9,7 @@ function settings() {
     })
 }
 
-function update() {
+function canUpdate() {
     inputs = document.querySelectorAll('input')
     buttons = document.querySelectorAll('button')
     inputs.forEach(input => {
@@ -17,5 +17,13 @@ function update() {
     })
     buttons.forEach(button => {
         button.disabled = true
+    })
+}
+
+function logout(){
+    fetch('/PruebaConceptosPHP/logout')
+    .then(res => res.json())
+    .then(data => {
+        location.href = "/PruebaConceptosPHP/login"
     })
 }

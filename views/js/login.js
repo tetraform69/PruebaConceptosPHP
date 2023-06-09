@@ -20,11 +20,15 @@ function login(event) {
     fetch(url, options)
     .then(res => res.json())
     .then(data => {
-        console.log(data);
-        if(data.userRol == 'user'){
-            location.href="/PruebaConceptosPHP/user"
-        } else {
-            location.href="/PruebaConceptosPHP/admin"
+        if (data.status == 'error') {
+            document.getElementById('message').innerText = data.message
+            document.getElementById('username').focus()
+        } else{
+            if(data.userRol == 'user'){
+                location.href="/PruebaConceptosPHP/user"
+            } else {
+                location.href="/PruebaConceptosPHP/admin"
+            }
         }
     })
 }

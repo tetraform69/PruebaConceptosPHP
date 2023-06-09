@@ -28,3 +28,11 @@ function closeModal(id) {
     modalContainer.style.visibility = "hidden"
     modal.style.display = "none"
 }
+
+function logout(){
+    fetch('/PruebaConceptosPHP/logout')
+    .then(res => res.json())
+    .then(data => {
+        location.href = "/PruebaConceptosPHP/login"
+    })
+}
