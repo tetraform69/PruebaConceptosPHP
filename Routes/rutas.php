@@ -12,7 +12,7 @@ function rutas()
         echo  json_encode($userController->getAll());
         return;
     }
-
+    //* GET login and index
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && ($_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/login' || $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/')) {
         if (isset($_SESSION['user'])){
             if($_SESSION['user']['rol'] == 'admin'){
@@ -24,13 +24,19 @@ function rutas()
         login();
         return;
     }
-
+    //* GET admin
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/admin') {
+        if(!isset($_SESSION['user'])){
+            header('Location: /PruebaConceptosPHP/login');
+        }
         admin();
         return;
     }
-
+    //* GET user
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/user') {
+        if(!isset($_SESSION['user'])){
+            header('Location: /PruebaConceptosPHP/login');
+        }
         user();
         return;
     }
@@ -46,6 +52,19 @@ function rutas()
         $index = $matches[1];
         $userController = new UserController();
         echo json_encode($userController->getOne($index));
+        return;
+    }
+    //* GET logout
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/logout') {
+        if (isset($_SESSION['user'])) {
+            session_destroy();
+
+            $json['status'] = 'ok';
+            $json['message'] = 'You Logout';
+        } else {
+            $json['message'] = "you haven't a session";
+        }
+        echo json_encode($json);
         return;
     }
     //* POST /login
@@ -81,19 +100,6 @@ function rutas()
         } else {
             $json['status'] = 'error';
             $json['message'] = 'already have a session';
-        }
-        echo json_encode($json);
-        return;
-    }
-    //* POST logout
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/logout') {
-        if (isset($_SESSION['user'])) {
-            session_destroy();
-
-            $json['status'] = 'ok';
-            $json['message'] = 'You Logout';
-        } else {
-            $json['message'] = "you haven't a session";
         }
         echo json_encode($json);
         return;
