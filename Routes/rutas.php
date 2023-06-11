@@ -8,6 +8,11 @@ function rutas()
     // handle GET request to /users
     // echo json_encode($_SERVER);
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/users') {
+        if ($_SESSION['user']['rol'] == 'admin'){
+            $userController = new UserController();
+            echo json_encode($userController->getAllAdmin());
+            return;
+        }
         $userController = new UserController();
         echo  json_encode($userController->getAll());
         return;
@@ -28,6 +33,9 @@ function rutas()
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/admin') {
         if (!isset($_SESSION['user'])) {
             header('Location: /PruebaConceptosPHP/login');
+        }
+        if ($_SESSION['user']['rol'] != 'admin'){
+            return http_response_code(401);
         }
         admin();
         return;
@@ -127,14 +135,21 @@ function rutas()
         $json_string = file_get_contents('php://input');
         $data = json_decode($json_string);
         $userController = new UserController();
+        $_SESSION['user']['name'] = $data->name;
+        $_SESSION['user']['pasword'] = $data->pasword;
         echo json_encode($userController->update($index, $data->name, $data->pasword));
         return;
     }
     // handle DELETE request to /user/delete
     if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && preg_match('/user\/delete\?id=(\d+)$/', $_SERVER['REQUEST_URI'], $matches)) {
         $index = $matches[1];
+        if ($_SESSION['user']['rol'] == 'admin'){
+            $userController = new UserController();
+            echo json_encode($userController->delete($index));
+            return;
+        }
         $userController = new UserController();
-        echo json_encode($userController->delete($index));
+        echo json_encode($userController->state($index, 0));
         return;
     }
     http_response_code(404);

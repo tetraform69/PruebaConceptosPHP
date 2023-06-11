@@ -1,6 +1,6 @@
 <?php
-include_once ('model/conexion.php');
-include_once ('model/conexion.php');
+include_once('model/conexion.php');
+include_once('model/user.php');
 
 class UserController
 {
@@ -20,25 +20,37 @@ class UserController
     public function getAll()
     {
         try {
-            $request = $this->con->getCon()->prepare("SELECT * FROM users");
+            $request = $this->con->getCon()->prepare("SELECT id, name, pasword FROM users WHERE estado = 1 AND rol != 'admin'");
             $request->execute();
             $result = $request->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
-        } catch (PDOExeption $err) {
-            return "Error al leer" . $err->getMessage();
+        } catch (PDOException $err) {
+            return "Error al leer " . $err->getMessage();
+        }
+    }
+
+    public function getAllAdmin()
+    {
+        try {
+            $request = $this->con->getCon()->prepare("SELECT * FROM users WHERE rol != 'admin'");
+            $request->execute();
+            $result = $request->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $err) {
+            return "Error al leer " . $err->getMessage();
         }
     }
 
     public function getOne($id)
     {
         try {
-            $request = $this->con->getCon()->prepare("SELECT id, name, rol FROM users WHERE id = :id");
+            $request = $this->con->getCon()->prepare("SELECT * FROM users WHERE id = :id");
             $request->bindParam(':id', $id);
             $request->execute();
             $result = $request->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
-        } catch (PDOExeption $err) {
-            return "Error al leer" . $err->getMessage();
+        } catch (PDOException $err) {
+            return "Error al leer " . $err->getMessage();
         }
     }
 
@@ -51,10 +63,28 @@ class UserController
             $request->bindParam(':id', $id);
             $request->execute();
             return "Actualizado";
-        } catch (PDOExeption $err) {
-            return "Error al actualizar" . $err->getMessage();
+        } catch (PDOException $err) {
+            return "Error al actualizar " . $err->getMessage();
         }
     }
+
+    public function state($id, $state)
+    {
+        try {
+            $request = $this->con->getCon()->prepare("UPDATE users SET estado = :state WHERE id = :id");
+            $request->bindParam(':state', $state);
+            $request->bindParam(':id', $id);
+            $request->execute();
+            if ($state == 0) {
+                return "Inactive";
+            } else {
+                return "Active";
+            }
+        } catch (PDOException $err) {
+            return "Error: " . $err->getMessage();
+        }
+    }
+
     public function delete($id)
     {
         try {
@@ -62,8 +92,8 @@ class UserController
             $request->bindParam(':id', $id);
             $request->execute();
             return "Eliminado";
-        } catch (PDOExeption $err) {
-            return "Error al eliminar" . $err->getMessage();
+        } catch (PDOException $err) {
+            return "Error al eliminar " . $err->getMessage();
         }
     }
 }

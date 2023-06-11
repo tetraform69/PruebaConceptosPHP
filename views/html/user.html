@@ -12,22 +12,32 @@
     <nav>
         <a href="#">inicio</a>
         <a href="#" onclick="settings()">settings</a>
-        <a href="login.html" id="salir">salir</a>
+        <a href="#" onclick="logout()">salir</a>
     </nav>
     <section>
-        <div class="box">
+        <form class="box" onsubmit="update(event)">
+            <input type="hidden" value="{{id}}" id="userID">
             <img src="/PruebaConceptosPHP/views/img/default-user-image.png" alt="">
             <div class="box-input">
-                <input type="text" placeholder="username" required disabled>
+                <input type="text" placeholder="username" id="username" value="{{username}}" required disabled>
             </div>
             <div class="box-input">
-                <input type="text" placeholder="password" required disabled>
+                <input type="text" placeholder="password" id="password" value="{{password}}" required disabled>
             </div>
             <div class="box-buttons">
-                <button disabled onclick="canUpdate()">Update</button>
-                <button disabled>Delete</button>
+                <button disabled>Update</button>
+                <button type="button" onclick="openModal('delete')" disabled>Delete</button>
+            </div>
+        </form>
+    </section>
+    <div class="modal-container" id="modal-container">
+        <div class="modal" id="modal-delete">
+            <h1>Are you sure?</h1>
+            <div class="buttons">
+                <button onclick="deleted()">Delete</button>
+                <button onclick="closeModal('delete')">Cancel</button>
             </div>
         </div>
-    </section>
+    </div>
 </body>
 </html>

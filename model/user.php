@@ -25,7 +25,7 @@ class User
             $request->bindParam(':rol', $this->rol);
             $request->execute();
             return "message: User creado";
-        } catch (PDOExeption $err) {
+        } catch (PDOException $err) {
             return "message: Error al crear" . $err->getMessage();
         }
     }

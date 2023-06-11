@@ -13,19 +13,19 @@
 <body>
     <nav>
         <a href="#">inicio</a>
-        <a href="#">users</a>
+        <a href="#" onclick="openModal('create')">add user</a>
         <a href="#">settings</a>
         <a href="#" onclick="logout()">salir</a>
     </nav>
     <section>
         <div class="box">
             <div class="header-table">
-                <p>#</p>
+                <p>id</p>
                 <p>user</p>
                 <p>status</p>
                 <p></p>
             </div>
-            <div class="body-table">
+            <div class="body-table" id="body-table">
                 <div class="row">
                     <p>1</p>
                     <p>Juan</p>
@@ -49,21 +49,33 @@
     </section>
 
     <div class="modal-container" id="modal-container">
-        <form class="modal" id="modal-update">
-            <button type="button" class="close-modal" onclick="closeModal('update')">X</button>
+        <form class="modal" id="modal-create" onsubmit="created(event)">
+            <button type="button" class="close-modal" onclick="closeModal('create')">X</button>
             <div class="box-input">
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="createUsername" name="username" required>
                 <label for="username">User Name</label>
             </div>
             <div class="box-input">
-                <input type="text" id="password" name="password" required>
+                <input type="text" id="createPassword" name="password" required>
+                <label for="password">Password</label>
+            </div>
+            <button>Create</button>
+        </form>
+        <form class="modal" id="modal-update" onsubmit="updated(event)">
+            <button type="button" class="close-modal" onclick="closeModal('update')">X</button>
+            <div class="box-input">
+                <input type="text" id="updateUsername" name="username" required>
+                <label for="username">User Name</label>
+            </div>
+            <div class="box-input">
+                <input type="text" id="updatePassword" name="password" required>
                 <label for="password">Password</label>
             </div>
             <div class="check-container">
                 <input type="checkbox" id="check">
                 <p id="check-label">active</p>
             </div>
-            <button type="submit">Update</button>
+            <button>Update</button>
         </form>
         <div class="modal" id="modal-delete">
             <h1>Are you sure?</h1>

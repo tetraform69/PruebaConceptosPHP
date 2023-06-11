@@ -12,11 +12,26 @@ function admin()
 
 function user()
 {
-    render('views\html\user.html');
+    $data = array(
+        'id' => $_SESSION['user']['id'],
+        'username' => $_SESSION['user']['name'],
+        'password' => $_SESSION['user']['pasword'],
+    );
+    renderData('views\html\user.html', $data);
 }
 
 function render($html)
 {
     $website = file_get_contents($html);
+    echo $website;
+}
+
+function renderData($html, $data) {
+    $website = file_get_contents($html);
+
+    foreach ($data as $key => $value){
+        $website = str_replace('{{'. $key . '}}', $value, $website);
+    }
+
     echo $website;
 }
