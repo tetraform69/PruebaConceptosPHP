@@ -20,7 +20,7 @@ class UserController
     public function getAll()
     {
         try {
-            $request = $this->con->getCon()->prepare("SELECT id, name, pasword FROM users WHERE estado = 1 AND rol != 'admin'");
+            $request = $this->con->getCon()->prepare("SELECT * FROM users WHERE estado = 1");
             $request->execute();
             $result = $request->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
@@ -54,12 +54,13 @@ class UserController
         }
     }
 
-    public function update($id, $name, $pasword)
+    public function update($id, $name, $pasword, $estado)
     {
         try {
-            $request = $this->con->getCon()->prepare("UPDATE users SET name = :name, pasword = :pasword WHERE id = :id");
+            $request = $this->con->getCon()->prepare("UPDATE users SET name = :name, pasword = :pasword, estado = :estado WHERE id = :id");
             $request->bindParam(':name', $name);
             $request->bindParam(':pasword', $pasword);
+            $request->bindParam(':estado', $estado);
             $request->bindParam(':id', $id);
             $request->execute();
             return "Actualizado";

@@ -137,7 +137,11 @@ function rutas()
         $userController = new UserController();
         $_SESSION['user']['name'] = $data->name;
         $_SESSION['user']['pasword'] = $data->pasword;
-        echo json_encode($userController->update($index, $data->name, $data->pasword));
+        if ($_SESSION['user']['rol'] == 'admin'){
+            echo json_encode($userController->update($index, $data->name, $data->pasword, $data->estado));
+        }else{
+            echo json_encode($userController->update($index, $data->name, $data->pasword, "1"));
+        }
         return;
     }
     // handle DELETE request to /user/delete
