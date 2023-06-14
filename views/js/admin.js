@@ -77,8 +77,8 @@ function read() {
             <p>${user.name}</p>
             <p>${user.estado == 1 ? "active" : "inactive"}</p>
             <div class="buttons">
-                <button onclick="preUpdate('${user.id}')">Edit</button>
-                <button onclick="openModal('delete')">Delete</button>
+                <button onclick="saveId('${user.id}','update')">Edit</button>
+                <button onclick="saveId('${user.id}','delete')">Delete</button>
             </div>
             </div>`
             });
@@ -86,32 +86,34 @@ function read() {
         })
 }
 
-function preUpdate(id) {
-    openModal('update')
+function saveId(id, modal) {
+    openModal(modal)
     localStorage.id = id
 
-    let url = `/PruebaConceptosPHP/user?id=${id}`
-
-    fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            document.getElementById('updateUsername').value = data[0].name
-            document.getElementById('updatePassword').value = data[0].pasword
-            labelCheck = document.getElementById('check-label')
-            if (data[0].estado == 1) {
-                chek.checked = true
-                labelCheck.innerText = 'Active'
-            } else {
-                chek.checked = false
-                labelCheck.innerText = 'Inactive'
-            }
-        })
+    if(modal == 'update'){
+        let url = `/PruebaConceptosPHP/user?id=${id}`
+    
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('updateUsername').value = data[0].name
+                document.getElementById('updatePassword').value = data[0].pasword
+                labelCheck = document.getElementById('check-label')
+                if (data[0].estado == 1) {
+                    chek.checked = true
+                    labelCheck.innerText = 'Active'
+                } else {
+                    chek.checked = false
+                    labelCheck.innerText = 'Inactive'
+                }
+            })
+    }
 }
 
 function updated(event) {
     event.preventDefault()
 
-    id = localStorage.id
+    let id = localStorage.id
     let name = updateUsername.value
     let password = updatePassword.value
     let estado = chek.checked ? "1" : "0"
@@ -143,6 +145,20 @@ function updated(event) {
 
 function deleted() {
 
+    let id = localStorage.id
+    let url = `/PruebaConceptosPHP/user/delete?id=${id}`
+
+    let options = {
+        method: 'DELETE'
+    }
+
+    fetch(url, options)
+        .then(res => res.json())
+        .then(data => {
+            read()
+            closeModal('update')
+            alert(data)
+        })
 }
 
 read()
