@@ -90,9 +90,9 @@ function saveId(id, modal) {
     openModal(modal)
     localStorage.id = id
 
-    if(modal == 'update'){
+    if (modal == 'update') {
         let url = `/PruebaConceptosPHP/user?id=${id}`
-    
+
         fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -156,8 +156,7 @@ function deleted() {
         .then(res => res.json())
         .then(data => {
             read()
-            closeModal('update')
-            alert(data)
+            closeModal('delete')
         })
 }
 
