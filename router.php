@@ -20,6 +20,16 @@ function user()
     renderData('views\html\user.html', $data);
 }
 
+function settings()
+{
+    $data = array(
+        'id' => $_SESSION['user']['id'],
+        'username' => $_SESSION['user']['name'],
+        'password' => $_SESSION['user']['pasword'],
+    );
+    renderData('views\html\settings.html', $data);
+}
+
 function render($html)
 {
     $website = file_get_contents($html);

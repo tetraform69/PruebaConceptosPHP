@@ -40,6 +40,17 @@ function rutas()
         admin();
         return;
     }
+    //* GET admin settings
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/settings') {
+        if (!isset($_SESSION['user'])) {
+            header('Location: /PruebaConceptosPHP/login');
+        }
+        if ($_SESSION['user']['rol'] != 'admin') {
+            return http_response_code(401);
+        }
+        settings();
+        return;
+    }
     //* GET user
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/PruebaConceptosPHP/user') {
         if (!isset($_SESSION['user'])) {
